@@ -19,6 +19,9 @@ mongoose
 // Use Routes
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
+app.use('/api/course', require('./routes/api/courses'));
+app.use('/api/fooditem', require('./routes/api/fooditems'));
+app.use('/api/subcategories', require('./routes/api/subcategories'));
 
 // Serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
