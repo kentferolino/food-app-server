@@ -14,6 +14,25 @@ router.get("/", (req, res) => {
     .then(subcategories => res.json(subcategories));
 });
 
+// @route  GET api/subcategory/coursename/:name
+// @desc   Get a subcategories by course name
+// @access Private
+router.get("/coursename/:course", auth, (req, res) => {
+  const courseName = req.params.course;
+  Course.findOne({ name: courseName }, function (err, course) {
+    if (err) throw err;
+    if (!course) res.status(404).json({ success: false, msg: "Not found." });
+    else {
+      Subcategory.find({ course: course._id }, function (err, subcategories) {
+        if (err) throw err;
+        else {
+          res.json(subcategories)
+        }
+      })
+    }
+  })
+});
+
 // @route  POST api/subcategory
 // @desc   Create a subcategory
 // @access Private

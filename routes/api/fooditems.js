@@ -14,6 +14,19 @@ router.get("/", (req, res) => {
     .then(fooditems => res.json(fooditems));
 });
 
+// @route  GET api/fooditem/subcategory/:subcatID
+// @desc   Get a food items by subcategory id
+// @access Private
+router.get("/subcategory/:subcatID", auth, (req, res) => {
+  const subcatID = req.params.subcatID;
+  FoodItem.find({ subcategory: subcatID }, function (err, fooditems) {
+    if (err) throw err;
+    else {
+      res.json(fooditems)
+    }
+  })
+});
+
 // @route  POST api/fooditem
 // @desc   Create a fooditem
 // @access Private

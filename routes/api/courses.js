@@ -14,6 +14,20 @@ router.get("/", (req, res) => {
     .then(courses => res.json(courses));
 });
 
+// @route  GET api/course/name/:name
+// @desc   Get a course by course name
+// @access Private
+router.get("/name/:name", auth, (req, res) => {
+  const name = req.params.name;
+  Course.findOne({ name: name }, function (err, course) {
+    if (err) throw err;
+    if (!course) res.status(404).json({ success: false, msg: "Course not found." });
+    else {
+      res.json(course)
+    }
+  })
+});
+
 // @route  POST api/course
 // @desc   Create a course
 // @access Private
